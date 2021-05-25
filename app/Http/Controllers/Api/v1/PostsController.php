@@ -21,12 +21,12 @@ class PostsController extends Controller
         $redis = Redis::connection();
         $covid_latest = json_decode($redis->get('covid_latest'));
         $vaccinations = json_decode($redis->get('vaccinations'));
-        // $observations = json_decode($redis->get('observations'));
+        $observations = json_decode($redis->get('observations'));
+
         $daily_vaccinations_date = "";
         $people_fully_vaccinated_date = "";
         $people_vaccinated_date = "";
-        
-        
+
         $reports = json_decode($redis->get('reports'));
         $key = strtoupper($request->ios_code);
         $resp = json_decode ("{}");
@@ -38,20 +38,20 @@ class PostsController extends Controller
                 $resp->new_cases = $covid_latest_resp->new_cases;
                 $resp->total_deaths = $covid_latest_resp->total_deaths;
                 $resp->new_deaths = $covid_latest_resp->new_deaths;
-                $resp->tested = $covid_latest_resp->new_tests;
-                $resp->total_tested = $covid_latest_resp->total_tests;
                 $resp->vaccniated = $covid_latest_resp->new_vaccinations_smoothed;
                 $resp->fully_vaccinated = $covid_latest_resp->people_fully_vaccinated;
                 $resp->total_vaccinated = $covid_latest_resp->people_vaccinated;
                 $resp->owid_date = $covid_latest_resp->last_updated_date;
 
-                // if(isset($observations->$key)){
-                //     $resp->tested = $observations->$key->daily_change_in_cumulative_total;
-                //     $resp->total_tested = $observations->$key->cumulative_total;
-                // } else {
-                //     $resp->tested = null;
-                //     $resp->total_tested = null;
-                // }
+                if(isset($observations->$key)){
+                    $resp->tested = $observations->$key->daily_change_in_cumulative_total;
+                    $resp->total_tested = $observations->$key->cumulative_total;
+                    $resp->date_cumulative = $observations->$key->date_cumulative;
+                } else {
+                    $resp->tested = $covid_latest_resp->new_tests;
+                    $resp->total_tested = $covid_latest_resp->total_tests;
+                    $resp->date_cumulative = $covid_latest_resp->last_updated_date;
+                }
     
                 if(isset($reports->$key)){
                     $resp->total_recovered = $reports->$key->total_recovered;
@@ -90,14 +90,15 @@ class PostsController extends Controller
                 $resp->new_cases = $covid_latest_resp->new_cases;
                 $resp->total_deaths = $covid_latest_resp->total_deaths;
                 $resp->new_deaths = $covid_latest_resp->new_deaths;
-                $resp->tested = $covid_latest_resp->new_tests;
-                $resp->total_tested = $covid_latest_resp->total_tests;
+                $resp->tested = $observations->$key->daily_change_in_cumulative_total;
+                $resp->total_tested = $observations->$key->cumulative_total;
                 $resp->vaccniated = $covid_latest_resp->new_vaccinations_smoothed;
                 $resp->fully_vaccinated = $covid_latest_resp->people_fully_vaccinated;
                 $resp->total_vaccinated = $covid_latest_resp->people_vaccinated;
                 $resp->total_recovered = $reports->$key->total_recovered;
                 $resp->active_cases = $reports->$key->active_cases;
                 $resp->date = $reports->$key->last_update;
+                $resp->date_cumulative = $covid_latest_resp->last_updated_date;
                 $resp->owid_date = $covid_latest_resp->last_updated_date;
                 $resp->vaccniated_date = $covid_latest_resp->last_updated_date;
                 $resp->fully_vaccinated_date = $covid_latest_resp->last_updated_date;

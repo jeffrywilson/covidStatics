@@ -42170,7 +42170,7 @@ var render = function() {
           _c("div", { staticClass: "text-container" }, [
             _vm.statics
               ? _c("h2", [_vm._v(_vm._s(_vm.fValue))])
-              : _c("h2", [_vm._v("NULL")]),
+              : _c("h2", [_vm._v("N/A")]),
             _vm._v(" "),
             _c("p", [
               _vm._v("\n          " + _vm._s(_vm.title) + "\n        ")

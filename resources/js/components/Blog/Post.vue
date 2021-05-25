@@ -4,7 +4,7 @@
       <div class="text-box">
         <div class="text-container">
           <h2 v-if="statics">{{ fValue }}</h2>
-          <h2 v-else>NULL</h2>
+          <h2 v-else>N/A</h2>
           <p>
             {{ title }}
           </p>

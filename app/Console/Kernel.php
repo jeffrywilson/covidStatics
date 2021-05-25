@@ -27,6 +27,10 @@ class Kernel extends ConsoleKernel
         $schedule->command('quote:daily')
             ->everyTwoMinutes()
             ->withoutOverlapping();
+        
+        $schedule->command('quote:hourly')
+            ->everyTwoMinutes()
+            ->withoutOverlapping();
     }
 
     /**
