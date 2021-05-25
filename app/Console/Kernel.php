@@ -25,11 +25,11 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
         $schedule->command('quote:daily')
-            ->everyTwoMinutes()
+            ->hourly()
             ->withoutOverlapping();
         
         $schedule->command('quote:hourly')
-            ->everyTwoMinutes()
+            ->hourly()
             ->withoutOverlapping();
     }
 

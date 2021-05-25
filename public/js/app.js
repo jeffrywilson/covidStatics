@@ -42388,7 +42388,7 @@ var render = function() {
                       attrs: {
                         title: "People tested daily",
                         statics: _vm.post.tested,
-                        date: _vm.post.owid_date
+                        date: _vm.post.date_cumulative
                       },
                       model: {
                         value: _vm.post,
@@ -42403,7 +42403,7 @@ var render = function() {
                       attrs: {
                         title: "Total people tested",
                         statics: _vm.post.total_tested,
-                        date: _vm.post.owid_date
+                        date: _vm.post.date_cumulative
                       },
                       model: {
                         value: _vm.post,

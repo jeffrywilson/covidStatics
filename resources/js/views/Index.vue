@@ -49,13 +49,13 @@
               v-model="post"
               :title="'People tested daily'"
               :statics="post.tested"
-              :date="post.owid_date"
+              :date="post.date_cumulative"
             />
             <post
               v-model="post"
               :title="'Total people tested'"
               :statics="post.total_tested"
-              :date="post.owid_date"
+              :date="post.date_cumulative"
             />
             <post
               v-model="post"
